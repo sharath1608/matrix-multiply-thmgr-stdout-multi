@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 #include <unistd.h>
-#include <thmgr.h>
+// #include <thmgr.h>
+#include <thpool.h>
 // ---- thread management code start ----
 
 int num_threads;
@@ -108,13 +109,17 @@ int main_worker(int argc, char * argv[]){
   }
 
   // job id
-  if(argc <= 4) {
-    return 1;
-  }
+  // if(argc <= 4) {
+  //   return 1;
+  // }
 
-  // Get thread pool
-  char * jid = argv[4];
-  thpool = thpool_get_shared(jid);
+  // // Get thread pool
+  // char * jid = argv[4];
+  // thpool = thpool_get_shared(jid);
+
+  
+  // Init thread pool
+  thpool = thpool_init(num_threads);
 
   int r  = atoi(argv[1]);
   int c  = atoi(argv[2]);
@@ -147,6 +152,7 @@ int main_worker(int argc, char * argv[]){
   freeMatrix(b, r);
   freeMatrix(res, r);
 
+  thpool_destroy(thpool);
   return 0;
 }
 
