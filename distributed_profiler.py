@@ -438,7 +438,7 @@ class DistributedProfiler:
         )
 
         # direct runs only after thmgr is done
-        self._dispatch_group("parallel_direct_measurements", parallel_mode=True)
+        await self._dispatch_group("parallel_direct_measurements", parallel_mode=True)
 
         # Update progress after all groups complete
         async with self._progress_lock:
